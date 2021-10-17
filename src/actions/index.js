@@ -16,3 +16,9 @@ export const removeFromFavorites = (obj) => {
     payload: obj,
   };
 };
+export const addData = (obj) => {
+  return {
+    type: "ADD_DATA",
+    payload: obj,
+  };
+};

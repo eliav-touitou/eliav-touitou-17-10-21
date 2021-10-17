@@ -31,8 +31,10 @@ export const getCityForecast = async (key) => {
   const baseUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}`;
   const query = `?apikey=${apiKey}`;
   try {
-    const data = await axios.get(baseUrl + query);
-    return data;
+    const response = await axios.get(baseUrl + query);
+    const forecast = await response.data.DailyForecasts;
+    return forecast;
+    // return data;
   } catch (err) {
     console.log(err.message);
   }
