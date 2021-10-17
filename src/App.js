@@ -6,10 +6,15 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCityKey, getCityWeather, getCityForecast } from "./utils";
 import { setCity } from "./actions";
+
 function App() {
+  //states
   const [page, setPage] = useState("home");
-  const dispatch = useDispatch();
   const city = useSelector((state) => state.city);
+  const favorites = useSelector((state) => state.favorites);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getCityKey("tel-aviv")
       .then((key) => {
