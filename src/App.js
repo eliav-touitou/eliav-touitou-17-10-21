@@ -1,7 +1,53 @@
 import "./App.css";
-
+import Home from "./components/Home";
+import Favorites from "./components/Favorites";
+import { useState, useEffect } from "react";
+// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getCityKey, getCityWeather, getCityForecast } from "./utils";
+import { setCity } from "./actions";
 function App() {
-  return <div className="App">hello</div>;
+  const [page, setPage] = useState("home");
+  const dispatch = useDispatch();
+  const city = useSelector((state) => state.city);
+  useEffect(() => {
+    getCityKey("tel-aviv")
+      .then((key) => {
+        dispatch(
+          setCity({
+            name: "Tel-aviv",
+            key: key,
+          })
+        );
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  useEffect(() => {
+    getCityWeather(city.key);
+  }, [city]);
+  // const city = useSelector((state) => state.city);
+
+  return (
+    <div className="App">
+      <div className="navbar">
+        <button
+          onClick={() => {
+            setPage("home");
+          }}
+        >
+          Home
+        </button>
+        <button
+          onClick={() => {
+            setPage("favorites");
+          }}
+        >
+          Favorites
+        </button>
+      </div>
+      {page === "home" ? <Home /> : <Favorites />}
+    </div>
+  );
 }
 
 export default App;
