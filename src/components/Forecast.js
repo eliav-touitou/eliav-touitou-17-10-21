@@ -8,13 +8,13 @@ export default function CitySection() {
   const city = useSelector((state) => state.city);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getCityForecast(city.key).then((res) => {
-      res.forEach((day) => dispatch(addData(day)));
-    });
-  }, []);
-  useEffect(() => {
-    console.log(city);
-  }, [city]);
+  //   useEffect(() => {
+  //     getCityForecast(city.key).then((res) => {
+  //       res.forEach((day) => dispatch(addData(day)));
+  //     });
+  //   }, []);
+  //   useEffect(() => {
+  //     console.log(city);
+  //   }, [city]);
   return <div></div>;
 }

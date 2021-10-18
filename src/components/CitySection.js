@@ -8,16 +8,12 @@ export default function CitySection() {
   const city = useSelector((state) => state.city);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    getCityWeather(city.key).then((res) => {
-      dispatch(addData({ temperature: res }));
-    });
-  }, []);
-
-  const handleFavorites = () => {};
+  const handleFavorites = (isSaved) => {
+    dispatch(addToFavorites({ city: city.name, key: city.key }));
+  };
   return (
     <div>
-      <button onClick={handleFavorites}>
+      <button onClick={() => handleFavorites()}>
         {city.isSaved === true ? "remove from favorites" : "like!"}
       </button>
       <div className="city-name">

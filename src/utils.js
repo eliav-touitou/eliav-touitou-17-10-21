@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiKey = "nlu2VBKj34YHTDXCz5CJ1ISBiPXISPdt";
+const apiKey = "XgnNRA3bbGi4WGb1CwngGF0AIeM6GaVf";
 
 export const getCityKey = async (city) => {
   const baseUrl =

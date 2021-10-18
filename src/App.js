@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getCityKey, getCityWeather, getCityForecast } from "./utils";
-import { setCity } from "./actions";
+import { setCity, addData } from "./actions";
 
 function App() {
   //states
@@ -27,10 +27,6 @@ function App() {
       })
       .catch((err) => console.log(err));
   }, []);
-  useEffect(() => {
-    getCityWeather(city.key);
-  }, [city]);
-  // const city = useSelector((state) => state.city);
 
   return (
     <div className="App">
