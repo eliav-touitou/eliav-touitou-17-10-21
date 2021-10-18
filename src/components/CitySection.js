@@ -9,7 +9,7 @@ export default function CitySection() {
   const dispatch = useDispatch();
 
   const handleFavorites = (isSaved) => {
-    dispatch(addToFavorites({ city: city.name, key: city.key }));
+    dispatch(addToFavorites({ name: city.name, key: city.key }));
   };
   return (
     <div>

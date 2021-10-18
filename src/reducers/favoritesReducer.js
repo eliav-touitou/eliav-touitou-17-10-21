@@ -3,7 +3,7 @@ const favoritesReducer = (state = [], action) => {
     case "ADD_TO_FAVORITES":
       return [...state, action.payload];
     case "REMOVE_FROM_FAVORITES":
-      return state.filter((item) => item !== action.payload);
+      return state.filter((item) => action.payload !== item.key);
     default:
       return state;
   }

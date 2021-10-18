@@ -26,6 +26,18 @@ function App() {
         );
       })
       .catch((err) => console.log(err));
+    getCityWeather(city.key)
+      .then((res) => {
+        dispatch(addData({ temperature: res }));
+      })
+      .catch((err) => console.log(err));
+
+    getCityForecast(city.key)
+      .then((res) => {
+        // dispatch(addData({ temperature: res }));
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   return (

@@ -10,10 +10,10 @@ export const addToFavorites = (obj) => {
     payload: obj,
   };
 };
-export const removeFromFavorites = (obj) => {
+export const removeFromFavorites = (num) => {
   return {
     type: "REMOVE_FROM_FAVORITES",
-    payload: obj,
+    payload: num,
   };
 };
 export const addData = (obj) => {
