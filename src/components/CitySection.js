@@ -20,7 +20,7 @@ export default function CitySection() {
         <p>{city.name}</p>
       </div>
       <div className="degree">
-        <p>{city.temperature}°</p>
+        <p>{city.weather}°</p>
       </div>
     </div>
   );

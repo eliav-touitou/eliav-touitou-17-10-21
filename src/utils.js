@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiKey = "XgnNRA3bbGi4WGb1CwngGF0AIeM6GaVf";
+const apiKey = "RvQXQGEJUAiEWS3ZydvVEPytjK6K2hJe";
 
 export const getCityKey = async (city) => {
   const baseUrl =
@@ -58,7 +58,8 @@ export const getCityForecast = async (key) => {
 
     dailyForecasts.forEach((day) => {
       const dayObj = {};
-      dayObj[getDayByDate(day.Date)] = {
+      dayObj.day = getDayByDate(day.Date);
+      dayObj.forecast = {
         max: convertToCelsius(day.Temperature.Maximum.Value),
         min: convertToCelsius(day.Temperature.Minimum.Value),
         dayState: day.Day.IconPhrase,

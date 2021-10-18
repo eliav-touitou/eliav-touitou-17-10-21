@@ -16,29 +16,71 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCityKey("tel-aviv")
-      .then((key) => {
+    async function getDefaultCityKey() {
+      const defaultCityKey = await getCityKey("tel-aviv");
+      dispatch(
+        setCity({
+          name: "tel-aviv",
+          key: defaultCityKey,
+        })
+      );
+
+      // dispatch(
+      //   addData({
+      //     weather: defaultCityWeather,
+      //     forecast: defaultCityForecast,
+      //   })
+      // );
+    }
+    getDefaultCityKey();
+  }, []);
+
+  useEffect(() => {
+    async function getDefaultCityData() {
+      try {
+        const defaultCityWeather = await getCityWeather(city.key);
+        const defaultCityForecast = await getCityForecast(city.key);
+
         dispatch(
-          setCity({
-            name: "Tel-aviv",
-            key: key,
+          addData({
+            weather: defaultCityWeather,
+            forecast: defaultCityForecast,
           })
         );
-      })
-      .catch((err) => console.log(err));
-    getCityWeather(city.key)
-      .then((res) => {
-        dispatch(addData({ temperature: res }));
-      })
-      .catch((err) => console.log(err));
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
-    getCityForecast(city.key)
-      .then((res) => {
-        // dispatch(addData({ temperature: res }));
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    getDefaultCityData();
+  }, [city]);
+  // useEffect(() => {
+  //   async function getDefaultCityData () {
+  //     const  DefaultCitykey = await
+  //     getCityKey("tel-aviv")
+  //       .then((key) => {
+  //         dispatch(
+  //           setCity({
+  //             name: "Tel-aviv",
+  //             key: key,
+  //           })
+  //         );
+  //       })
+  //       .catch((err) => console.log(err));
+  //     getCityWeather(city.key)
+  //       .then((res) => {
+  //         dispatch(addData({ temperature: res }));
+  //       })
+  //       .catch((err) => console.log(err));
+
+  //     getCityForecast(city.key)
+  //       .then((res) => {
+  //         dispatch(addData({ forecast: res }));
+  //         console.log(res);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, []);
 
   return (
     <div className="App">

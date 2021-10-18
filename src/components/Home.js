@@ -25,16 +25,13 @@ export default function Home() {
     getCityWeather(city.key).then((res) => {
       dispatch(addData({ temperature: res }));
     });
+    getCityForecast(city.key)
+      .then((res) => {
+        dispatch(addData({ forecast: res }));
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   };
-
-  // useEffect(() => {
-  // }, [city]);
-
-  // useEffect(() => {
-  //   getCityForecast(city.key).then((res) => {
-  //     res.forEach((day) => dispatch(addData(day)));
-  //   });
-  // }, [city]);
 
   return (
     <div>
