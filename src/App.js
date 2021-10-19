@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCityKey, getCityWeather, getCityForecast } from "./utils";
 import { setCity, addData, setForecast, setWeather } from "./actions";
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 
 function App() {
   //states
@@ -29,36 +30,34 @@ function App() {
   }, [city]);
 
   return (
-    // <div className="App container">
-    //
-    // </div>
-    <>
+    <BrowserRouter>
       <div className="navbar">
-        <button
-          className="location-button"
-          onClick={() => {
-            setPage("home");
-          }}
-        >
-          {" "}
-          <i data-feather="map-pin" />
-          <span>Home</span>
-        </button>
-        <button
-          className="location-button"
-          onClick={() => {
-            setPage("favorites");
-          }}
-        >
-          {" "}
-          <i data-feather="map-pin" />
-          <span>Favorites</span>
-        </button>
+        <NavLink exact to="/">
+          <button className="location-button">
+            <span>Home</span>
+          </button>
+        </NavLink>
+        <NavLink exact to="/favorites">
+          <button className="location-button">
+            <i data-feather="map-pin" />
+            <span>Favorites</span>
+          </button>
+        </NavLink>
       </div>
-      <div className="container">
+      {/* 
         {page === "home" ? <Home /> : <Favorites />}
+      </div> */}
+      <div className="container">
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/favorites">
+            <Favorites />
+          </Route>
+        </Switch>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 

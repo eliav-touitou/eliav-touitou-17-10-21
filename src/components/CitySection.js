@@ -14,7 +14,7 @@ export default function CitySection() {
       dispatch(removeFromFavorites(city.key));
       dispatch(addData({ isSaved: false }));
     } else {
-      dispatch(addToFavorites({ label: city.name, key: city.key }));
+      dispatch(addToFavorites({ label: city.label, key: city.key }));
       dispatch(addData({ isSaved: true }));
     }
   };
