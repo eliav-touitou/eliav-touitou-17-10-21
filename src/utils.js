@@ -3,7 +3,7 @@ const apiKey = "9iA7RFd8k5ScAExvnewAYoKuNGh7Kuy3";
 
 export const citySearchAutocomplete = async (str) => {
   const baseUrl =
-    "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+    "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
   const query = `?apikey=${apiKey}&q=${str}`;
   try {
     const response = await axios.get(baseUrl + query);
@@ -25,7 +25,7 @@ export const citySearchAutocomplete = async (str) => {
 };
 export const getCityKey = async (city) => {
   const baseUrl =
-    "http://dataservice.accuweather.com/locations/v1/cities/search";
+    "https://dataservice.accuweather.com/locations/v1/cities/search";
   const query = `?apikey=${apiKey}&q=${city}`;
   try {
     const data = await axios.get(baseUrl + query);
@@ -38,7 +38,7 @@ export const getCityKey = async (city) => {
 };
 
 export const getCityWeather = async (key) => {
-  const baseUrl = `http://dataservice.accuweather.com/currentconditions/v1/${key}`;
+  const baseUrl = `https://dataservice.accuweather.com/currentconditions/v1/${key}`;
   const query = `?apikey=${apiKey}`;
   try {
     const response = await axios.get(baseUrl + query);
@@ -71,7 +71,7 @@ const convertToCelsius = (far) => {
 };
 
 export const getCityForecast = async (key) => {
-  const baseUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}`;
+  const baseUrl = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${key}`;
   const query = `?apikey=${apiKey}`;
   try {
     const response = await axios.get(baseUrl + query);

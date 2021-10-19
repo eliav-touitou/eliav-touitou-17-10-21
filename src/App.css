@@ -274,3 +274,12 @@ body {
     max-width: 50vw;
   }
 }
+
+@media screen and (max-width: 985px) {
+  .week-list > li {
+    padding: 5px;
+    background: var(--gradient);
+    margin: 2%;
+    border-radius: 10px;
+  }
+}
