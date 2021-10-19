@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { removeFromFavorites } from "../actions";
+import { removeFromFavorites, addData } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function SavedCity({ city }) {
@@ -7,6 +7,7 @@ export default function SavedCity({ city }) {
 
   const remove = () => {
     dispatch(removeFromFavorites(city.key));
+    dispatch(addData({ isSaved: false }));
   };
 
   return (

@@ -1,4 +1,7 @@
-const cityReducer = (state = {}, action) => {
+const cityReducer = (
+  state = { label: "Tel Aviv / Israel", key: 215854 },
+  action
+) => {
   switch (action.type) {
     case "SET_CITY":
       return action.payload;

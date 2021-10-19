@@ -1,6 +1,26 @@
 import axios from "axios";
-const apiKey = "RvQXQGEJUAiEWS3ZydvVEPytjK6K2hJe";
+const apiKey = "hG9ChHssU9Q69WWG761HKGCnoHClZA1r";
 
+export const citySearchAutocomplete = async (str) => {
+  const baseUrl =
+    "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+  const query = `?apikey=${apiKey}&q=${str}`;
+  try {
+    const response = await axios.get(baseUrl + query);
+    const data = response.data;
+    // console.log(data);
+    const cities = [];
+    data?.forEach((city) => {
+      const cityObj = {};
+      cityObj.label = city.LocalizedName + " / " + city.Country.LocalizedName;
+      cityObj.key = city.Key;
+      cities.push(cityObj);
+    });
+    return cities;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 export const getCityKey = async (city) => {
   const baseUrl =
     "http://dataservice.accuweather.com/locations/v1/cities/search";

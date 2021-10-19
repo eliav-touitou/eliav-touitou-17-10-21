@@ -22,3 +22,15 @@ export const addData = (obj) => {
     payload: obj,
   };
 };
+export const setWeather = (obj) => {
+  return {
+    type: "SET_WEATHER",
+    payload: obj,
+  };
+};
+export const setForecast = (obj) => {
+  return {
+    type: "SET_FORECAST",
+    payload: obj,
+  };
+};

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 // import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getCityKey, getCityWeather, getCityForecast } from "./utils";
-import { setCity, addData } from "./actions";
+import { setCity, addData, setForecast, setWeather } from "./actions";
 
 function App() {
   //states
@@ -16,92 +16,49 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    async function getDefaultCityKey() {
-      const defaultCityKey = await getCityKey("tel-aviv");
-      dispatch(
-        setCity({
-          name: "tel-aviv",
-          key: defaultCityKey,
-        })
-      );
-
-      // dispatch(
-      //   addData({
-      //     weather: defaultCityWeather,
-      //     forecast: defaultCityForecast,
-      //   })
-      // );
-    }
-    getDefaultCityKey();
-  }, []);
-
-  useEffect(() => {
-    async function getDefaultCityData() {
-      try {
-        const defaultCityWeather = await getCityWeather(city.key);
-        const defaultCityForecast = await getCityForecast(city.key);
-
-        dispatch(
-          addData({
-            weather: defaultCityWeather,
-            forecast: defaultCityForecast,
-          })
-        );
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    getDefaultCityData();
+    getCityForecast(city.key)
+      // .then((forecast) => console.log(forecast))
+      .then((forecast) =>
+        dispatch(setForecast({ cityKey: city.key, forecast }))
+      )
+      .catch((err) => console.log(err));
+    getCityWeather(city.key)
+      // .then((forecast) => console.log(forecast))
+      .then((degrees) => dispatch(setWeather({ cityKey: city.key, degrees })))
+      .catch((err) => console.log(err));
   }, [city]);
-  // useEffect(() => {
-  //   async function getDefaultCityData () {
-  //     const  DefaultCitykey = await
-  //     getCityKey("tel-aviv")
-  //       .then((key) => {
-  //         dispatch(
-  //           setCity({
-  //             name: "Tel-aviv",
-  //             key: key,
-  //           })
-  //         );
-  //       })
-  //       .catch((err) => console.log(err));
-  //     getCityWeather(city.key)
-  //       .then((res) => {
-  //         dispatch(addData({ temperature: res }));
-  //       })
-  //       .catch((err) => console.log(err));
-
-  //     getCityForecast(city.key)
-  //       .then((res) => {
-  //         dispatch(addData({ forecast: res }));
-  //         console.log(res);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, []);
 
   return (
-    <div className="App">
+    // <div className="App container">
+    //
+    // </div>
+    <>
       <div className="navbar">
         <button
+          className="location-button"
           onClick={() => {
             setPage("home");
           }}
         >
-          Home
+          {" "}
+          <i data-feather="map-pin" />
+          <span>Home</span>
         </button>
         <button
+          className="location-button"
           onClick={() => {
             setPage("favorites");
           }}
         >
-          Favorites
+          {" "}
+          <i data-feather="map-pin" />
+          <span>Favorites</span>
         </button>
       </div>
-      {page === "home" ? <Home /> : <Favorites />}
-    </div>
+      <div className="container">
+        {page === "home" ? <Home /> : <Favorites />}
+      </div>
+    </>
   );
 }
 
