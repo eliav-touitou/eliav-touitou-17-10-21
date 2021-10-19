@@ -1,32 +1,36 @@
 import "./App.css";
 import Home from "./components/Home";
 import Favorites from "./components/Favorites";
-import { useState, useEffect } from "react";
-// import axios from "axios";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCityKey, getCityWeather, getCityForecast } from "./utils";
-import { setCity, addData, setForecast, setWeather } from "./actions";
+import { getCityWeather, getCityForecast } from "./utils";
+import { setForecast, setWeather, setError } from "./actions";
 import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   //states
-  const [page, setPage] = useState("home");
   const city = useSelector((state) => state.city);
-  const favorites = useSelector((state) => state.favorites);
+  const errorExisting = useSelector((state) => state.errorExisting);
+  const notify = () =>
+    toast("Sorry, there seem to be a problem with our server ");
+
+  useEffect(() => {
+    if (errorExisting) notify();
+  }, [errorExisting]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     getCityForecast(city.key)
-      // .then((forecast) => console.log(forecast))
       .then((forecast) =>
         dispatch(setForecast({ cityKey: city.key, forecast }))
       )
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setError(err)));
     getCityWeather(city.key)
-      // .then((forecast) => console.log(forecast))
       .then((degrees) => dispatch(setWeather({ cityKey: city.key, degrees })))
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setError(err)));
   }, [city]);
 
   return (
@@ -39,14 +43,10 @@ function App() {
         </NavLink>
         <NavLink exact to="/favorites">
           <button className="location-button">
-            <i data-feather="map-pin" />
             <span>Favorites</span>
           </button>
         </NavLink>
       </div>
-      {/* 
-        {page === "home" ? <Home /> : <Favorites />}
-      </div> */}
       <div className="container">
         <Switch>
           <Route exact path="/">
@@ -56,6 +56,7 @@ function App() {
             <Favorites />
           </Route>
         </Switch>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );

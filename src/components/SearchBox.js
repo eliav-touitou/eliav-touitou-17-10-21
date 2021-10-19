@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { citySearchAutocomplete } from "../utils";
-import { setCity } from "../actions";
+import { setCity, setError } from "../actions";
 import { useDispatch } from "react-redux";
 
 export default function SearchBox() {
   const [citiesOption, setCitiesOption] = useState([]);
-  const [citiesWithKey, setCitiesWithKey] = useState([]);
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
 
@@ -18,8 +17,7 @@ export default function SearchBox() {
           setCitiesOption(res);
         }
       })
-      .catch((err) => console.log(err));
-    console.log(search);
+      .catch((err) => dispatch(setError(err)));
   }, [search]);
 
   const searchCity = (value) => {
@@ -38,6 +36,7 @@ export default function SearchBox() {
         sx={{ width: 300 }}
         renderInput={(params) => (
           <TextField
+            id="textField"
             {...params}
             label="City"
             onChange={(e) => setSearch(e.target.value)}

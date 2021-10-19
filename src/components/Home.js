@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CitySection from "./CitySection";
 import Forecast from "./Forecast";
 import SearchBox from "./SearchBox";

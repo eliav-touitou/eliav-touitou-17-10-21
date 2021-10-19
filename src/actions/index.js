@@ -34,3 +34,9 @@ export const setForecast = (obj) => {
     payload: obj,
   };
 };
+export const setError = (bool) => {
+  return {
+    type: "SET_ERROR",
+    payload: bool,
+  };
+};

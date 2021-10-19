@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiKey = "hG9ChHssU9Q69WWG761HKGCnoHClZA1r";
+const apiKey = "9iA7RFd8k5ScAExvnewAYoKuNGh7Kuy3";
 
 export const citySearchAutocomplete = async (str) => {
   const baseUrl =
@@ -8,17 +8,19 @@ export const citySearchAutocomplete = async (str) => {
   try {
     const response = await axios.get(baseUrl + query);
     const data = response.data;
-    // console.log(data);
+    // return (data);
     const cities = [];
-    data?.forEach((city) => {
-      const cityObj = {};
-      cityObj.label = city.LocalizedName + " / " + city.Country.LocalizedName;
-      cityObj.key = city.Key;
-      cities.push(cityObj);
-    });
+    if (data) {
+      data?.forEach((city) => {
+        const cityObj = {};
+        cityObj.label = city.LocalizedName + " / " + city.Country.LocalizedName;
+        cityObj.key = city.Key;
+        cities.push(cityObj);
+      });
+    }
     return cities;
   } catch (err) {
-    console.log(err.message);
+    throw err;
   }
 };
 export const getCityKey = async (city) => {
@@ -31,7 +33,7 @@ export const getCityKey = async (city) => {
     const cityKey = response.Key;
     return cityKey;
   } catch (err) {
-    console.log(err.message);
+    throw err;
   }
 };
 
@@ -44,7 +46,7 @@ export const getCityWeather = async (key) => {
     const weather = Math.round(data);
     return weather;
   } catch (err) {
-    console.log(err.message);
+    throw err;
   }
 };
 
@@ -91,6 +93,6 @@ export const getCityForecast = async (key) => {
     return forecast;
     // return data;
   } catch (err) {
-    console.log(err.message);
+    throw err;
   }
 };
