@@ -1,10 +1,20 @@
 import axios from "axios";
 const apiKey = "9iA7RFd8k5ScAExvnewAYoKuNGh7Kuy3";
+let cancelToken;
 
 export const citySearchAutocomplete = async (str) => {
   const baseUrl =
     "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
   const query = `?apikey=${apiKey}&q=${str}`;
+
+  //Check if there are any previous pending requests
+  if (typeof cancelToken !== typeof undefined) {
+    cancelToken.cancel("Operation canceled due to new request.");
+  }
+
+  //Save the cancel token for the current request
+  cancelToken = axios.CancelToken.source();
+
   try {
     const response = await axios.get(baseUrl + query);
     const data = response.data;

@@ -11,7 +11,7 @@ export default function CitySection() {
       <div className="week-container">
         <ul className="week-list">
           {forecast.forecast?.map((day, i) => (
-            <DailyForecast key={`day-${i}`} day={day} />
+            <DailyForecast key={`day-${day.day}`} day={day} />
           ))}
         </ul>
       </div>

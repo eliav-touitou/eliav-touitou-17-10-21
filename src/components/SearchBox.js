@@ -11,13 +11,18 @@ export default function SearchBox() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    citySearchAutocomplete(search)
-      .then((res) => {
-        if (res) {
-          setCitiesOption(res);
-        }
-      })
-      .catch((err) => dispatch(setError(err)));
+    const timer = setTimeout(() => {
+      citySearchAutocomplete(search)
+        .then((res) => {
+          if (res) {
+            setCitiesOption(res);
+          }
+        })
+        .catch((err) => dispatch(setError(err)));
+    }, 300);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [search]);
 
   const searchCity = (value) => {
