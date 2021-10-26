@@ -9,7 +9,7 @@ export default function Favorites() {
     <div className={"week-container"}>
       <ul className="week-list">
         {favorites?.map((savedCity, i) => (
-          <SavedCity key={`city-${savedCity.label}`} city={savedCity} />
+          <SavedCity key={`city-${savedCity.key}`} city={savedCity} />
         ))}
       </ul>
     </div>
