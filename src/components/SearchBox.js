@@ -12,8 +12,8 @@ export default function SearchBox() {
   const [citiesOption, setCitiesOption] = useState([]);
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-
   let cancelToken = axios.CancelToken.source();
+
   const citySearchAutocomplete = async (str) => {
     const query = `?apikey=${apiKey}&q=${str}`;
 
@@ -41,6 +41,7 @@ export default function SearchBox() {
       }
     }
   };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       citySearchAutocomplete(search)
