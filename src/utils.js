@@ -1,37 +1,31 @@
 import axios from "axios";
-const apiKey = "9iA7RFd8k5ScAExvnewAYoKuNGh7Kuy3";
-let cancelToken;
+const apiKey = "8qKQJKQJgVNWGDiUleLSiKOi8UOUtgZx";
 
-export const citySearchAutocomplete = async (str) => {
-  const baseUrl =
-    "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
-  const query = `?apikey=${apiKey}&q=${str}`;
+// export const citySearchAutocomplete = async (str) => {
+//   const baseUrl =
+//     "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+//   const query = `?apikey=${apiKey}&q=${str}`;
 
-  if (typeof cancelToken !== typeof undefined) {
-    cancelToken.cancel("Operation canceled due to new request.");
-  }
+//   try {
+//     const response = await axios.get(baseUrl + query, {
+//       cancelToken: cancelToken.token,
+//     });
+//     const data = response.data;
+//     const cities = [];
+//     if (data) {
+//       data?.forEach((city) => {
+//         const cityObj = {};
+//         cityObj.label = city.LocalizedName + " / " + city.Country.LocalizedName;
+//         cityObj.key = city.Key;
+//         cities.push(cityObj);
+//       });
+//     }
+//     return cities;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
 
-  cancelToken = axios.CancelToken.source();
-
-  try {
-    const response = await axios.get(baseUrl + query, {
-      cancelToken: cancelToken.token,
-    });
-    const data = response.data;
-    const cities = [];
-    if (data) {
-      data?.forEach((city) => {
-        const cityObj = {};
-        cityObj.label = city.LocalizedName + " / " + city.Country.LocalizedName;
-        cityObj.key = city.Key;
-        cities.push(cityObj);
-      });
-    }
-    return cities;
-  } catch (err) {
-    throw err;
-  }
-};
 export const getCityKey = async (city) => {
   const baseUrl =
     "https://dataservice.accuweather.com/locations/v1/cities/search";
